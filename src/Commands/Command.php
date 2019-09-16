@@ -180,7 +180,9 @@ abstract class Command implements CommandInterface
         $this->telegram = $telegram;
         $this->update = $update;
         $this->entity = $entity;
-        $this->arguments = $this->parseCommandArguments();
+        if (!$this->update->isType('callback_query')){
+            $this->arguments = $this->parseCommandArguments();
+        }
 
         return call_user_func_array([$this, 'handle'], $this->getArguments());
     }
